@@ -26,17 +26,22 @@ for i in fin.readlines():
         oom = 0
 # print(data)
 
+def varinfo(data, name):
+    print('varable name', name, ':')
+    l = len(data)
+    print('number:', l)
+    avg = np.mean(data)
+    # avg_orig = np.mean(data_orig)
+    print('average:', avg)
+    # print('average orig:', avg_orig)
+    std1 = math.sqrt(sum((data - avg) ** 2) / (l - 1))
+    # std1_orig = math.sqrt(sum((data_orig - avg_orig) ** 2) / (l - 1))
+    print('std:', std1)
+    # print('std orig:', std1_orig)
+
 ### main processing ###
 for i in range(len(data)):
-    print('varable name', name[i], ':')
-    l = len(data[i])
-    print('number:', l)
-    avg = np.mean(data[i])
-    avg_orig = np.mean(data_orig[i])
-    print('average:', avg)
-    print('average orig:', avg_orig)
-    std1 = math.sqrt(sum((data[i] - avg) ** 2) / (l - 1))
-    std1_orig = math.sqrt(sum((data_orig[i] - avg_orig) ** 2) / (l - 1))
-    print('std:', std1)
-    print('std orig:', std1_orig)
-
+    varinfo(data[i], name[i])
+    varinfo(data_orig[i], name[i] + ' orig')
+varinfo(data[1] + .02219, 'real l')
+print(data[1] + .02219)
