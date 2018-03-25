@@ -3,4 +3,6 @@
 *.doc
 *.docx
 *.pdf
+*.pyc
+__pycache__
 
