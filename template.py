@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from scipy import stats
 import math
 import sys
+import re
 def font():
     #avoid font problem
     plt.rcParams['font.sans-serif'] = ['SimHei']
@@ -40,14 +41,57 @@ r-squared: %g \n \
     return {'string':string, 'slope':slope, 'intercept':intercept, \
             'r_value':r_value, 'p_value':p_value, 'std_err':std_err,\
             'r_squared':r_squared, 's_slope':s_slope, 's_intercept':s_intercept}
-def readdata(filename):
+def readdata(filename, need=111):
     data = []; data_orig = []; name = []
     #order of magnitude
     oom = 0
     fin = open(filename, 'r')
     for i in fin.readlines():
+        if len(i) == 0:
+            continue
         if i[0] == '#':
             #line start with # is comment
+            pass
+        elif i[0] == 'e':
+            oom = int(i.split()[1])
+        elif i[0] == 'n':
+            #NOTE: may misbehave if some name is not given, 
+            #be sure to give all varables name if using this feature
+            name.append(i.split()[1])
+        else:
+            data.append(np.array([float(x) * pow(10, oom) for x in i.split()]))
+            data_orig.append(np.array([float(x) for x in i.split()]))
+            oom = 0
+    if need == 111:
+        return (data, data_orig, name)
+    if need == 110:
+        return (data, data_orig)
+    if need == 101:
+        return (data, name)
+    #be aware of the octal!
+    if need == 011:
+        return (data_orig, name)
+    if need == 010:
+        return data_orig
+    if need == 001:
+        return name
+    if need == 100:
+        return data
+    # return (data, data_orig, name)
+
+def readpart(fid, number, need=111):
+    #read number line of real data from file descriptor fid
+    data = []; data_orig = []; name = []
+    cnt = 0
+    oom = 0
+    while cnt < number:
+        i = fid.readline()
+        if re.match('^ *\t*\n*$', i):
+            #TODO: improve RE
+            #if an empty line with no number but blank
+            continue
+        # print('-->', i)
+        if i[0] == '#':
             pass
         elif i[0] == 'e':
             oom = int(i.split()[1])
@@ -57,7 +101,23 @@ def readdata(filename):
             data.append(np.array([float(x) * pow(10, oom) for x in i.split()]))
             data_orig.append(np.array([float(x) for x in i.split()]))
             oom = 0
-    return (data, data_orig, name)
+            cnt += 1
+    if need == 111:
+        return (data, data_orig, name)
+    if need == 110:
+        return (data, data_orig)
+    if need == 101:
+        return (data, name)
+    #be aware of the octal!
+    if need == 011:
+        return (data_orig, name)
+    if need == 010:
+        return data_orig
+    if need == 001:
+        return name
+    if need == 100:
+        return data
+
 
 def varinfo(data, name):
     print('varable name', name, ':')
