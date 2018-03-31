@@ -3,6 +3,7 @@
 
 from docx import Document
 from docx.shared import Inches
+import time
 
 # docu = Document()
 
@@ -38,9 +39,9 @@ from docx.shared import Inches
 
 # docu.save('gen.docx')
 
+imglist = ['.png', '.jpg', '.bmp']
 
 def gendocx(name, *elem):
-    imglist = ['.png', '.jpg', '.bmp']
     docu = Document()
     p = docu.add_paragraph('')
     for i in elem:
@@ -50,5 +51,19 @@ def gendocx(name, *elem):
         else:
             p.add_run(i)
     docu.save(name)
+
+def docuaddtitle(docu):
+    docu.add_paragraph('大物实验数据    古宜民  ' + time.strftime("%Y/%m/%d", time.localtime()))
+
+def docuappend(docu, *elem, pic=5.2):
+    # p = docu.add_paragraph('')
+    for i in elem:
+        if i[-4:] in imglist:
+            docu.add_picture(i, width=Inches(pic))
+            # p = docu.add_paragraph('')
+        else:
+            # p.add_run(i)
+            docu.add_paragraph(i)
+
 
 

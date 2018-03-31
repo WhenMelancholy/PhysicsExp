@@ -3,6 +3,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 from scipy import stats
 import math
 import sys
@@ -12,7 +13,7 @@ def font():
     plt.rcParams['font.sans-serif'] = ['SimHei']
     plt.rcParams['axes.unicode_minus'] = False 
 
-def linear_regression(x, y, quiet=0):
+def linear_regression(x, y, quiet=0, simple=0):
     slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
     r_squared = r_value ** 2
     s_slope = slope * math.sqrt((r_value ** -2 - 1) / (len(x) - 2))
@@ -38,10 +39,13 @@ r-squared: %g \n \
 斜率标准差: %g \n \
 截距标准差: %g
 ''' % (slope, intercept, r_value, p_value, std_err, r_squared, s_slope, s_intercept)
-    return {'string':string, 'slope':slope, 'intercept':intercept, \
+    if simple == 1:
+        return slope, intercept
+    if simple == 0:
+        return {'string':string, 'slope':slope, 'intercept':intercept, \
             'r_value':r_value, 'p_value':p_value, 'std_err':std_err,\
             'r_squared':r_squared, 's_slope':s_slope, 's_intercept':s_intercept}
-def readdata(filename, need=111):
+def readdata(filename, need=0b111):
     data = []; data_orig = []; name = []
     #order of magnitude
     oom = 0
@@ -62,24 +66,23 @@ def readdata(filename, need=111):
             data.append(np.array([float(x) * pow(10, oom) for x in i.split()]))
             data_orig.append(np.array([float(x) for x in i.split()]))
             oom = 0
-    if need == 111:
+    if need == 0b111:
         return (data, data_orig, name)
-    if need == 110:
+    if need == 0b110:
         return (data, data_orig)
-    if need == 101:
+    if need == 0b101:
         return (data, name)
-    #be aware of the octal!
-    if need == 011:
+    if need == 0b011:
         return (data_orig, name)
-    if need == 010:
+    if need == 0b010:
         return data_orig
-    if need == 001:
+    if need == 0b001:
         return name
-    if need == 100:
+    if need == 0b100:
         return data
     # return (data, data_orig, name)
 
-def readpart(fid, number, need=111):
+def readpart(fid, number, need=0b111):
     #read number line of real data from file descriptor fid
     data = []; data_orig = []; name = []
     cnt = 0
@@ -102,20 +105,19 @@ def readpart(fid, number, need=111):
             data_orig.append(np.array([float(x) for x in i.split()]))
             oom = 0
             cnt += 1
-    if need == 111:
+    if need == 0b111:
         return (data, data_orig, name)
-    if need == 110:
+    if need == 0b110:
         return (data, data_orig)
-    if need == 101:
+    if need == 0b101:
         return (data, name)
-    #be aware of the octal!
-    if need == 011:
+    if need == 0b011:
         return (data_orig, name)
-    if need == 010:
+    if need == 0b010:
         return data_orig
-    if need == 001:
+    if need == 0b001:
         return name
-    if need == 100:
+    if need == 0b100:
         return data
 
 
@@ -128,8 +130,20 @@ def varinfo(data, name):
     std1 = math.sqrt(sum((data - avg) ** 2) / (l - 1))
     print('\tstd:', std1)
 
+#set x and y limit to make graph better
+def setrange(datax, datay):
+    mini = min(datay)
+    maxi = max(datay)
+    plt.ylim(mini - .2 * (maxi - mini), maxi + .2 * (maxi - mini))
 
-
+def my_sort_by(maj, *sub):
+    for i in range(len(maj) - 1):
+        for j in range(i, len(maj)):
+            if maj[i] > maj[j]:
+               maj[i], maj[j] = (maj[j], maj[i]) 
+               for k in sub:
+                   k[i], k[j] = (k[j], k[i]) 
+    return (maj, sub)
 if __name__ == '__main__':
     #plot
     plt.scatter(x, y, marker='*', color='black', label='原始数据')
