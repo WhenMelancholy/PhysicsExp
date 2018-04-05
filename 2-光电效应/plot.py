@@ -70,10 +70,10 @@ for i in range(datanum):
     plt.xlabel('电压 / V')
     plt.ylabel('电流 / A')
     plt.title('电流-电压曲线 -- %g nm' % (1e9 * wavelen[i]))
-    # plt.legend()
+    plt.legend()
     plt.grid()
-    # plt.savefig('pic' + str(i) + '.png')
-    # plt.show()
+    plt.savefig('pic' + str(i) + '.png')
+    plt.show()
 #plot and analyse u_s and freq
 # plt.savefig('picfull.png')
 # plt.show()

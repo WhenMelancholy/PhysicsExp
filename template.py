@@ -59,13 +59,13 @@ def readdata(filename, need=0b111):
         elif i[0] == 'e':
             oom = int(i.split()[1])
         elif i[0] == 'n':
-            #NOTE: may misbehave if some name is not given, 
-            #be sure to give all varables name if using this feature
             name.append(i.split()[1])
         else:
             data.append(np.array([float(x) * pow(10, oom) for x in i.split()]))
             data_orig.append(np.array([float(x) for x in i.split()]))
             oom = 0
+            if len(data) > len(name):
+                name.append('i_have_no_name')
     if need == 0b111:
         return (data, data_orig, name)
     if need == 0b110:
@@ -103,6 +103,8 @@ def readpart(fid, number, need=0b111):
         else:
             data.append(np.array([float(x) * pow(10, oom) for x in i.split()]))
             data_orig.append(np.array([float(x) for x in i.split()]))
+            if len(data) > len(name):
+                name.append('i_have_no_name')
             oom = 0
             cnt += 1
     if need == 0b111:
@@ -121,14 +123,46 @@ def readpart(fid, number, need=0b111):
         return data
 
 
-def varinfo(data, name):
-    print('varable name', name, ':')
+def varinfo(data, name='noname', quiet=0):
+    data = np.array(data)
     l = len(data)
-    print('\tnumber:', l)
     avg = np.mean(data)
-    print('\taverage:', avg)
     std1 = math.sqrt(sum((data - avg) ** 2) / (l - 1))
-    print('\tstd:', std1)
+    if quiet == 0:
+        print('varable name', name, ':')
+        print('\tnumber:', l)
+        print('\taverage:', avg)
+        print('\tstd:', std1)
+    return avg, std1
+
+def sqrtsum(*vars):
+    return math.sqrt(sum([x ** 2 for x in vars]))
+
+table_t_P_n = {
+        68:{3:1.32, 4:1.20, 5:1.14, 6:1.11, 7:1.09, 8:1.08, 9:1.07, 10:1.06, 15:1.04, 20:1.03},
+        90:{3:2.92, 4:2.35, 5:2.13, 6:2.02, 7:1.94, 8:1.86, 9:1.83, 10:1.76, 15:1.73, 20:1.71},
+        95:{3:4.30, 4:3.18, 5:2.78, 6:2.57, 7:2.46, 8:2.37, 9:2.31, 10:2.26, 15:2.15, 20:2.09},
+        99:{3:9.93, 4:5.84, 5:4.60, 6:4.03, 7:3.71, 8:3.50, 9:3.36, 10:3.25, 15:2.98, 20:2.86}
+        }
+table_kp_P = {
+        68:1, 90:1.65, 95:1.96
+        }
+
+def calc_delta_a(arr, P=68, quiet=1):
+    #delta_a = t_p * u_a
+    l = len(arr)
+    avg, std = varinfo(arr, quiet=1)
+    # print('in calc_delta_a:', l, avg, std)
+    if quiet == 0:
+        print('calc_delta_a:')
+        print('std:', std)
+        print('P:', P)
+        print('tp:', table_t_P_n[P][l])
+    return table_t_P_n[P][l] * std / math.sqrt(l)
+
+def calc_delta_b(arr, delta, delta_human=0, P=68, C=3):
+    #delta_b = kp * sqrt(delta_human**2 + delta**2) / C
+    return table_kp_P[P] * sqrtsum(delta, delta_human) / C
 
 #set x and y limit to make graph better
 def setrange(datax, datay):
