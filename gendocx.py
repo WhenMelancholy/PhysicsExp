@@ -41,15 +41,15 @@ import time
 
 imglist = ['.png', '.jpg', '.bmp']
 
-def gendocx(name, *elem):
+def gendocx(name, *elem, title=1):
     docu = Document()
-    p = docu.add_paragraph('')
+    if title == 1:
+        docuaddtitle(docu)
     for i in elem:
         if i[-4:] in imglist:
             docu.add_picture(i, width=Inches(5.))
-            p = docu.add_paragraph('')
         else:
-            p.add_run(i)
+            docu.add_paragraph(i)
     docu.save(name)
 
 def docuaddtitle(docu):

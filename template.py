@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from scipy import stats
+from scipy.interpolate import spline
 import math
 import sys
 import re
@@ -13,7 +14,7 @@ def font():
     plt.rcParams['font.sans-serif'] = ['SimHei']
     plt.rcParams['axes.unicode_minus'] = False 
 
-def linear_regression(x, y, quiet=0, simple=0):
+def linear_regression(x, y, quiet=1, simple=0):
     slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
     r_squared = r_value ** 2
     s_slope = slope * math.sqrt((r_value ** -2 - 1) / (len(x) - 2))
@@ -45,6 +46,11 @@ r-squared: %g \n \
         return {'string':string, 'slope':slope, 'intercept':intercept, \
             'r_value':r_value, 'p_value':p_value, 'std_err':std_err,\
             'r_squared':r_squared, 's_slope':s_slope, 's_intercept':s_intercept}
+
+def curve_smooth(x, y, insnum=300):
+    xnew = np.linspace(min(x), max(x), insnum)
+    ysmooth = spline(x, y, xnew)
+    return (xnew, ysmooth)
 def readdata(filename, need=0b111):
     data = []; data_orig = []; name = []
     #order of magnitude
@@ -165,10 +171,18 @@ def calc_delta_b(arr, delta, delta_human=0, P=68, C=3):
     return table_kp_P[P] * sqrtsum(delta, delta_human) / C
 
 #set x and y limit to make graph better
-def setrange(datax, datay):
-    mini = min(datay)
-    maxi = max(datay)
-    plt.ylim(mini - .2 * (maxi - mini), maxi + .2 * (maxi - mini))
+def setrange(datax, datay, xy=0b01):
+    if xy & 0b01:
+        mini = min(datay)
+        # print('in setrange:')
+        # print(mini)
+        maxi = max(datay)
+        # print(maxi)
+        plt.ylim(mini - .2 * (maxi - mini), maxi + .2 * (maxi - mini))
+    if xy & 0b10:
+        mini = min(datax)
+        maxi = max(datax)
+        plt.xlim(mini - .2 * (maxi - mini), maxi + .2 * (maxi - mini))
 
 def my_sort_by(maj, *sub):
     for i in range(len(maj) - 1):

@@ -52,4 +52,9 @@ for i in range(datanum):
     print('油滴带电荷数:', q[i] / e)
     print('电量不确定度:', u_q)
     print('---')
-
+r = .5e-6
+print(4/3 * math.pi * r**3 * (rou1 - rou2) * g / (6*math.pi*eita*r/(1 + b / (p * r))))
+print((6*math.pi*eita*r/(1 + b / (p * r))) / (4/3 * math.pi * r**3 * rou1))
+print(-math.log(.01)/2.89e5)
+t=1.59e-5
+print(3.38e-5*(t+1/2.89e5 * math.exp(-1.59e-5*2.89e5)))
