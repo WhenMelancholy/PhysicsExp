@@ -127,6 +127,11 @@ def readpart(fid, number, need=0b111):
         return name
     if need == 0b100:
         return data
+def readoneline(fid):
+    return np.array(readpart(fid, 1, need=0b100)[0])
+def readoneavg(fid):
+    return np.mean(readpart(fid, 1, need=0b100)[0])
+
 
 
 def varinfo(data, name='noname', quiet=0):
@@ -169,6 +174,11 @@ def calc_delta_a(arr, P=68, quiet=1):
 def calc_delta_b(arr, delta, delta_human=0, P=68, C=3):
     #delta_b = kp * sqrt(delta_human**2 + delta**2) / C
     return table_kp_P[P] * sqrtsum(delta, delta_human) / C
+def calc_delta_b_graph(arrx, arry, deltax, deltay, P=95, C=3):
+    result = linear_regression(arrx, arry, quiet=1)
+    deltay = result['slope'] * math.sqrt(2 * deltax ** 2 / (arrx[-1] - arrx[0]) ** 2 + 2 * deltay ** 2 / (arry[-1] - arrx[0]) ** 2)
+    deltax = deltay / result['slope'] * math.sqrt((arrx[-1] ** 2 + arrx[0] ** 2) / 2)
+    return table_kp_P[P] * deltay / C
 
 #set x and y limit to make graph better
 def setrange(datax, datay, xy=0b01):
