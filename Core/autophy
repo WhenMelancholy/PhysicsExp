@@ -12,9 +12,19 @@ def usage():
     print('read the source code yourself to get help')
 def wrong():
     print('something went wrong...')
-def initnew():
+def initnew(exptype):
+    fn = ''
+    if exptype == 'analyse':
+        os.system('cp -vn /home/petergu/PhysicsExp/Core/Template/analyse_template.py ./analyse.py')
+        os.system('touch data.txt')
+        os.system('ln -sv /home/petergu/PhysicsExp/Core .')
+    elif exptype == 'plot':
+        os.system('cp -vn /home/petergu/PhysicsExp/Core/Template/plot_template.py ./plot.py')
+        os.system('ln -sv /home/petergu/PhysicsExp/Core .')
+        os.system('touch data.txt')
+    else:
+        print('wrong type!')
     print('init done.')
-    pass
 def upload(filename):
     #upload to qingmiyunyin print system, TODO
     pass
@@ -34,7 +44,7 @@ if __name__ == '__main__':
             usage()
             sys.exit()
         elif o in ("-i", "--init"):
-            initnew()
+            initnew(a)
             sys.exit()
         elif o in ("-u", "--upload"):
             upload(a)

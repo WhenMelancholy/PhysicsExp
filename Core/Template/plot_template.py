@@ -2,22 +2,29 @@
 # -*- coding: utf-8 -*-
 
 import sys
-sys.path.append('..')
+import os
+sys.path.append(os.path.abspath('/home/petergu/PhysicsExp/Core'))
 
-from template import *
+from mainfunc import *
 from gendocx import *
 
 font()
 
-#read
+#read data
+# #1
 # data, data_orig, name = readdata('./data.txt', need=0b111)
+# #2
 # fin = open('./data.txt', 'r')
+# x = readoneline(fin)
+# y = readoneline(fin)
+# z = readonenumber(fin)
 # fin.close()
 
 #data process
 
 
 #linear regression and plot
+# #1
 # result = linear_regression(x, y)
 # setrange(x, y)
 # plt.scatter(x, y, marker='o', color='black', label='原始数据')
@@ -26,9 +33,13 @@ font()
 # plt.ylabel('')
 # plt.legend(loc=4)
 # plt.title('')
-
 # plt.savefig('pic.png')
 # plt.show()
+
+# #2
+#use automate tool
+# simple_linear_plot(x, y, xlab='x axis', ylab='y axis', title='my pic', save='pic.png')
+
 
 #generate docx #1
 # gendocx('gen.docx', 'pic.png', result['string'])

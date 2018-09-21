@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+#my auto physics experiment core functions
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
@@ -14,7 +14,7 @@ def font():
     plt.rcParams['font.sans-serif'] = ['SimHei']
     plt.rcParams['axes.unicode_minus'] = False 
 
-def linear_regression(x, y, quiet=1, simple=0):
+def linear_regression(x, y, quiet=1, simple=1):
     slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
     r_squared = r_value ** 2
     s_slope = slope * math.sqrt((r_value ** -2 - 1) / (len(x) - 2))
@@ -113,6 +113,9 @@ def readpart(fid, number, need=0b111):
                 name.append('i_have_no_name')
             oom = 0
             cnt += 1
+    data = np.array(data)
+    data_orn = np.array(data_orig)
+    name = np.array(name)
     if need == 0b111:
         return (data, data_orig, name)
     if need == 0b110:
@@ -127,10 +130,13 @@ def readpart(fid, number, need=0b111):
         return name
     if need == 0b100:
         return data
+#most used are these simple functions
 def readoneline(fid):
-    return np.array(readpart(fid, 1, need=0b100)[0])
+    return readpart(fid, 1, need=0b100)[0]
 def readoneavg(fid):
     return np.mean(readpart(fid, 1, need=0b100)[0])
+def readonenumber(fid):
+    return readpart(fid, 1, need=0b100)[0][0]
 
 
 
@@ -182,6 +188,7 @@ def calc_delta_b_graph(arrx, arry, deltax, deltay, P=95, C=3):
 
 #set x and y limit to make graph better
 def setrange(datax, datay, xy=0b01):
+    #limit y
     if xy & 0b01:
         mini = min(datay)
         # print('in setrange:')
@@ -189,10 +196,38 @@ def setrange(datax, datay, xy=0b01):
         maxi = max(datay)
         # print(maxi)
         plt.ylim(mini - .2 * (maxi - mini), maxi + .2 * (maxi - mini))
+    #limit x
     if xy & 0b10:
         mini = min(datax)
         maxi = max(datax)
         plt.xlim(mini - .2 * (maxi - mini), maxi + .2 * (maxi - mini))
+
+#some silly funcs to save time(really?) and repeat laborious
+def simple_plot(x, y, xlab='x', ylab='y', dot='o', clr='black', title='title', save=0, show=1):
+    setrange(x, y)
+    plt.plot(x, y, marker=dot, color=clr, label='原始数据')
+    plt.xlabel(xlab)
+    plt.ylabel(ylab)
+    plt.legend(loc=4)
+    plt.title(title)
+    if save != 0:
+        plt.savefig(save)
+    if show == 1:
+        plt.show()
+def simple_linear_plot(x, y, xlab='x', ylab='y', dot='o', dotlab='原始数据', linelab='拟合直线', title='title', save=0, show=1):
+    result = linear_regression(x, y, simple=0)
+    # setrange(x, y)
+    plt.scatter(x, y, marker=dot, color='black', label=dotlab)
+    plt.plot(x, result['intercept'] + result['slope'] * x, 'r', label=linelab)
+    plt.xlabel(xlab)
+    plt.ylabel(ylab)
+    plt.legend(loc=4)
+    plt.title(title)
+    if save != 0:
+        plt.savefig(save)
+    if show == 1:
+        plt.show()
+
 
 def my_sort_by(maj, *sub):
     for i in range(len(maj) - 1):
@@ -203,22 +238,6 @@ def my_sort_by(maj, *sub):
                    k[i], k[j] = (k[j], k[i]) 
     return (maj, sub)
 if __name__ == '__main__':
-    #plot
-    plt.scatter(x, y, marker='*', color='black', label='原始数据')
-    # plt.plot(x, y, '--', color='green', label='光滑曲线')
-    #plt.plot(x, intercept + slope * x, 'r', label='拟合直线')
-
-
-
-    plt.xlabel('')
-    plt.ylabel('')
-    plt.legend(loc=4)
-    plt.title('')
-
-    plt.savefig('pic.png')
-    plt.show()
-
-    from gendocx import gendocx
-    gendocx('gen.docx', 'pic.png', string)
+    print('this should be imported to run!')
 
 

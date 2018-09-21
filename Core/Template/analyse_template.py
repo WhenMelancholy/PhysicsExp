@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import sys
-sys.path.append('..')
+sys.path.append('/home/petergu/PhysicsExp/Core')
 
-from template import *
+from mainfunc import *
 
 fin = open('./data.txt', 'r')
 fin.close()
