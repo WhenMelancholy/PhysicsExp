@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from scipy import stats
 from scipy.interpolate import spline
+from scipy.interpolate import spline
 import math
 import sys
 import re
@@ -14,6 +15,7 @@ def font():
     plt.rcParams['font.sans-serif'] = ['SimHei']
     plt.rcParams['axes.unicode_minus'] = False 
 
+#线性回归，最小二乘法
 def linear_regression(x, y, quiet=1, simple=1):
     slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
     r_squared = r_value ** 2
@@ -47,7 +49,7 @@ r-squared: %g \n \
             'r_value':r_value, 'p_value':p_value, 'std_err':std_err,\
             'r_squared':r_squared, 's_slope':s_slope, 's_intercept':s_intercept}
 
-def curve_smooth(x, y, insnum=300):
+def curve_smooth(x, y, insnum=500):
     xnew = np.linspace(min(x), max(x), insnum)
     ysmooth = spline(x, y, xnew)
     return (xnew, ysmooth)
@@ -203,13 +205,16 @@ def setrange(datax, datay, xy=0b01):
         plt.xlim(mini - .2 * (maxi - mini), maxi + .2 * (maxi - mini))
 
 #some silly funcs to save time(really?) and repeat laborious
-def simple_plot(x, y, xlab='x', ylab='y', dot='o', clr='black', title='title', save=0, show=1):
+def simple_plot(x, y, xlab=None, ylab=None, label='原始数据', dot='o', clr='red', title=None, save=0, show=1):
     setrange(x, y)
-    plt.plot(x, y, marker=dot, color=clr, label='原始数据')
-    plt.xlabel(xlab)
-    plt.ylabel(ylab)
+    plt.plot(x, y, marker=dot, color=clr, label=label)
+    if xlab != None:
+        plt.xlabel(xlab)
+    if ylab != None:
+        plt.ylabel(ylab)
     plt.legend(loc=4)
-    plt.title(title)
+    if title != None:
+        plt.title(title)
     if save != 0:
         plt.savefig(save)
     if show == 1:
@@ -237,6 +242,22 @@ def my_sort_by(maj, *sub):
                for k in sub:
                    k[i], k[j] = (k[j], k[i]) 
     return (maj, sub)
+
+#a naive method to get intersection points, 
+#where (x, y) is two arrays of a curve, and y0 is the y value of points, 
+#the func returns all x that (x, y0) is on the curve
+def get_intersection_points(x, y, y0):
+    x0 = []
+    for i in range(len(x) - 1):
+        if y0 == y[i]:
+            x0.append(x[i])
+            continue
+        if y0 > min(y[i], y[i + 1]) and y0 < max(y[i], y[i + 1]):
+            x0.append(x[i] + (y0 - y[i]) * (x[i + 1] - x[i]) / (y[i + 1] - y[i]))
+    if y[-1] == y0:
+        x0.append(x[-1])
+    return x0
+
 if __name__ == '__main__':
     print('this should be imported to run!')
 

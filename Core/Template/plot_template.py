@@ -5,8 +5,8 @@ import sys
 import os
 sys.path.append(os.path.abspath('/home/petergu/PhysicsExp/Core'))
 
-from mainfunc import *
-from gendocx import *
+from Core.mainfunc import *
+from Core.gendocx import *
 
 font()
 

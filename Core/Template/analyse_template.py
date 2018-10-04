@@ -4,7 +4,7 @@
 import sys
 sys.path.append('/home/petergu/PhysicsExp/Core')
 
-from mainfunc import *
+from Core.mainfunc import *
 
 fin = open('./data.txt', 'r')
 fin.close()

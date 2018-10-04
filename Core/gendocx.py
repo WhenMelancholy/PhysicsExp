@@ -22,7 +22,7 @@ def gendocx(name, *elem, title=1):
 def docuaddtitle(docu):
     docu.add_paragraph('大物实验数据    古宜民  ' + time.strftime("%Y/%m/%d", time.localtime()))
 
-def docuappend(docu, *elem, pic=5.2):
+def docuappend(docu, *elem, pic=5.):
     for i in elem:
         if i[-4:] in imglist:
             docu.add_picture(i, width=Inches(pic))
