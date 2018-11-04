@@ -222,7 +222,7 @@ def simple_plot(x, y, xlab=None, ylab=None, label='原始数据', dot='o', clr='
 def simple_linear_plot(x, y, xlab='x', ylab='y', dot='o', dotlab='原始数据', linelab='拟合直线', title='title', save=0, show=1, issetrange=0):
     result = linear_regression(x, y, simple=0)
     if issetrange:
-        setrange(x, y)
+        setrange(x, y, xy=0b11)
     plt.scatter(x, y, marker=dot, color='black', label=dotlab)
     plt.plot(x, result['intercept'] + result['slope'] * x, 'r', label=linelab)
     plt.xlabel(xlab)
