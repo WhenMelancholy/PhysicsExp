@@ -7,6 +7,7 @@ import time
 
 imglist = ['.png', '.jpg', '.bmp']
 
+
 def gendocx(name, *elem, title=1):
     docu = Document()
     if title == 1:
@@ -19,8 +20,10 @@ def gendocx(name, *elem, title=1):
             docu.add_paragraph(i)
     docu.save(name)
 
+
 def docuaddtitle(docu):
     docu.add_paragraph('大物实验数据    古宜民  ' + time.strftime("%Y/%m/%d", time.localtime()))
+
 
 def docuappend(docu, *elem, pic=5.):
     for i in elem:

@@ -10,20 +10,20 @@ from Core.gendocx import *
 
 font()
 
-#read data
-# #1
+# read data
+# # 1
 # data, data_orig, name = readdata('./data.txt', need=0b111)
-# #2
+# # 2
 # fin = open('./data.txt', 'r')
 # x = readoneline(fin)
 # y = readoneline(fin)
 # z = readonenumber(fin)
 # fin.close()
 
-#data process
+# data process
 
 
-#linear regression and plot
+# linear regression and plot
 # #1
 # result = linear_regression(x, y)
 # setrange(x, y)
@@ -37,14 +37,14 @@ font()
 # plt.show()
 
 # #2
-#use automate tool
+# use automate tool
 # simple_linear_plot(x, y, xlab='x axis', ylab='y axis', title='my pic', save='pic.png')
 
 
-#generate docx #1
+# generate docx #1
 # gendocx('gen.docx', 'pic.png', result['string'])
 
-#generate docx #2
+# generate docx #2
 # docu = Document()
 # docuaddtitle(docu)
 # docuappend(docu, './picfull.png', './figure_1.png', './pic.png', result['string'], './picx.png')
