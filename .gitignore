@@ -5,4 +5,4 @@
 *.pdf
 *.pyc
 __pycache__
-
+.idea
