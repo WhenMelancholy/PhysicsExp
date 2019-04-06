@@ -12,6 +12,12 @@ import sys
 import re
 
 
+# some consts
+me = 9.11e-31
+electron = 1.602e-19
+kb = 1.381e-23
+
+
 def font():
     # avoid font problem
     plt.rcParams['font.sans-serif'] = ['SimHei']
@@ -235,8 +241,9 @@ def setrange(datax, datay, xy=0b01):
 
 
 # some silly funcs to save time(really?) and reduce repeating laborious
-def simple_plot(x, y, xlab=None, ylab=None, label='原始数据', dot='o', clr='red', title=None, save=0, show=1):
-    setrange(x, y)
+def simple_plot(x, y, xlab=None, ylab=None, label='原始数据', dot='o', clr='red', title=None, save=0, show=1, issetrange=1):
+    if issetrange:
+        setrange(x, y)
     plt.plot(x, y, marker=dot, color=clr, label=label)
     if xlab is not None:
         plt.xlabel(xlab)

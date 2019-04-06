@@ -3,7 +3,7 @@
 
 import sys
 import os
-sys.path.append(os.path.abspath('/home/petergu/PhysicsExp/Core'))
+sys.path.append('C:\\Users\\petergu\\MyHome\\PhysicsExp')
 
 from Core.mainfunc import *
 from Core.gendocx import *
@@ -14,7 +14,7 @@ font()
 # # 1
 # data, data_orig, name = readdata('./data.txt', need=0b111)
 # # 2
-# fin = open('./data.txt', 'r')
+# fin = open('./data.txt', 'r', encoding='utf-8')
 # x = readoneline(fin)
 # y = readoneline(fin)
 # z = readonenumber(fin)

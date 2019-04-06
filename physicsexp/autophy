@@ -8,26 +8,37 @@ import getopt
 from ftplib import FTP
 import getpass
 
+
+HomeDir = 'C:/Users/petergu/MyHome/PhysicsExp'
+
+
 def usage():
     print('read the source code yourself to get help')
+
+
 def wrong():
     print('something went wrong...')
+
+
 def initnew(exptype):
     fn = ''
     if exptype == 'analyse':
-        os.system('cp -vn /home/petergu/PhysicsExp/Core/Template/analyse_template.py ./analyse.py')
+        os.system('cp -vn ' + HomeDir + '/Core/Template/analyse_template.py ./analyse.py')
         os.system('touch data.txt')
-        os.system('ln -sv /home/petergu/PhysicsExp/Core .')
+        # os.system('ln -sv /home/petergu/PhysicsExp/Core .')
     elif exptype == 'plot':
-        os.system('cp -vn /home/petergu/PhysicsExp/Core/Template/plot_template.py ./plot.py')
-        os.system('ln -sv /home/petergu/PhysicsExp/Core .')
+        os.system('cp -vn ' + HomeDir + '/Core/Template/plot_template.py ./plot.py')
+        # os.system('ln -sv /home/petergu/PhysicsExp/Core .')
         os.system('touch data.txt')
     else:
         print('wrong type!')
     print('init done.')
+
+
 def upload(filename):
-    #upload to qingmiyunyin print system, TODO
+    # upload to qingmiyunyin print system, TODO
     pass
+
 
 if __name__ == '__main__':
     try:
@@ -36,7 +47,7 @@ if __name__ == '__main__':
         print(err)
         usage()
         sys.exit(2)
-    if args != []:
+    if args:
         print('unhandled argument detected.')
         sys.exit(3)
     for o, a in opts:
