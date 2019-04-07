@@ -24,6 +24,10 @@ def font():
     plt.rcParams['axes.unicode_minus'] = False 
 
 
+# Fix font problems
+font()
+
+
 # 线性回归，最小二乘法
 def linear_regression(x, y, quiet=1, simple=1):
     slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
@@ -241,15 +245,17 @@ def setrange(datax, datay, xy=0b01):
 
 
 # some silly funcs to save time(really?) and reduce repeating laborious
-def simple_plot(x, y, xlab=None, ylab=None, label='原始数据', dot='o', clr='red', title=None, save=0, show=1, issetrange=1):
+def simple_plot(x, y, xlab=None, ylab=None, 
+        lab='原始数据', dot='o', clr='black', title=None, save=0, show=1, issetrange=1, islegend=1):
     if issetrange:
         setrange(x, y)
-    plt.plot(x, y, marker=dot, color=clr, label=label)
+    plt.plot(x, y, marker=dot, color=clr, label=lab)
     if xlab is not None:
         plt.xlabel(xlab)
     if ylab is not None:
         plt.ylabel(ylab)
-    plt.legend(loc=4)
+    if islegend == 1:
+        plt.legend(loc=4)
     if title is not None:
         plt.title(title)
     if save != 0:
@@ -258,7 +264,8 @@ def simple_plot(x, y, xlab=None, ylab=None, label='原始数据', dot='o', clr='
         plt.show()
 
 
-def simple_linear_plot(x, y, xlab='x', ylab='y', dot='o', dotlab='原始数据', linelab='拟合直线', title='title', save=0, show=1, issetrange=0):
+def simple_linear_plot(x, y, xlab='x', ylab='y', 
+        dot='o', dotlab='原始数据', linelab='拟合直线', title='title', save=0, show=1, issetrange=0, islegend=1):
     result = linear_regression(x, y, simple=0)
     if issetrange:
         setrange(x, y, xy=0b11)
@@ -266,12 +273,14 @@ def simple_linear_plot(x, y, xlab='x', ylab='y', dot='o', dotlab='原始数据',
     plt.plot(x, result['intercept'] + result['slope'] * x, 'r', label=linelab)
     plt.xlabel(xlab)
     plt.ylabel(ylab)
-    plt.legend(loc=4)
+    if islegend == 1:
+        plt.legend(loc=4)
     plt.title(title)
     if save != 0:
         plt.savefig(save)
     if show == 1:
         plt.show()
+    return result['slope'], result['intercept']
 
 
 def my_sort_by(maj, *sub):

@@ -1,14 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import sys
-import os
-sys.path.append('C:\\Users\\petergu\\MyHome\\PhysicsExp')
-
-from Core.mainfunc import *
-from Core.gendocx import *
-
-font()
+from physicsexp.mainfunc import *
+from physicsexp.gendocx import *
 
 # read data
 # # 1
