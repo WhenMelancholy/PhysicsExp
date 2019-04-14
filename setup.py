@@ -8,7 +8,7 @@ setuptools.setup(
     name="physicsexp",
     version="0.0.1",
     author="ustcpetergu",
-    author_email="guyimin AT mail.ustc.edu.cn",
+    author_email="guyimin@mail.ustc.edu.cn",
     description="A simple wrapper of numpy and matplotlib to make physics experiment data analyse easier",
     long_description=long_description,
     long_description_content_type="text/markdown",
