@@ -23,11 +23,11 @@ def wrong():
 def initnew(exptype):
     fn = ''
     if exptype == 'analyse':
-        os.system('cp -vn ' + HomeDir + '/Core/Template/analyse_template.py ./analyse.py')
+        os.system('cp -vn ' + HomeDir + '/physicsexp/Template/analyse_template.py ./analyse.py')
         os.system('touch data.txt')
         # os.system('ln -sv /home/petergu/PhysicsExp/Core .')
     elif exptype == 'plot':
-        os.system('cp -vn ' + HomeDir + '/Core/Template/plot_template.py ./plot.py')
+        os.system('cp -vn ' + HomeDir + '/physicsexp/Template/plot_template.py ./plot.py')
         # os.system('ln -sv /home/petergu/PhysicsExp/Core .')
         os.system('touch data.txt')
     else:
