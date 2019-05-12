@@ -16,6 +16,7 @@ import re
 me = 9.11e-31
 electron = 1.602e-19
 kb = 1.381e-23
+c0 = 299792458.
 
 
 def font():

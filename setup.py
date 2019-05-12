@@ -6,7 +6,7 @@ with open("README.md", "r", encoding='utf-8') as fh:
 
 setuptools.setup(
     name="physicsexp",
-    version="0.0.1",
+    version="0.0.2",
     author="ustcpetergu",
     author_email="guyimin@mail.ustc.edu.cn",
     description="A simple wrapper of numpy and matplotlib to make physics experiment data analyse easier",
