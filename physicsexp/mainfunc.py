@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from scipy import stats
-from scipy.interpolate import spline
+from scipy.interpolate import *
 from scipy import interpolate
 import math
 import sys

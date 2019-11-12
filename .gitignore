@@ -3,11 +3,6 @@ dist
 physicsexp.egg-info
 Old
 
-*.png
-*.jpg
-*.doc
-*.docx
-*.pdf
 *.pyc
 __pycache__
 .idea
