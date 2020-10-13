@@ -187,6 +187,16 @@ Generated docx:
 
 Don't forget to change my name to yours. 
 
+## JupyterHub
+
+Later I found that using jupyter notebook is WAY MUCH better than coding in python editor: 
+
+![](./jupyterhub/jupyterhub.png)
+
+And, [Jupyterhub](https://jupyter.org/hub) can provide jupyter notebook access for a group of users: the common case when several people want to share their experiment data processing script with each other. 
+
+In [./jupyterhub](./jupyterhub) is my config being used to run jupyterhub: docker spawner with a shared strorage, dummy authenication. Literally no security or access control but acceptable for a group of trustable people on a private server. 
+
 ## Detailed Usage
 
 Wanna know how to use after reading the example? 
