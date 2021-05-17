@@ -15,6 +15,8 @@
 Don't want to use OriginLab or Excel? Try Python!  
 
 ~~最终目的是建造一套用于自动化处理大物实验数据、绘制图像、生成可打印文档、将文档提交到在线打印系统的工具；针对常用数据处理需求实现简化和自动化，只要简单的几行代码，就能完成通用的绘图、拟合、不确定度计算等大物实验常用任务。~~
+
+
 理想与现实差距还很大，目前仅仅包装了matplotlib绘图库、简单拟合、文件输入、docx生成，简化重复劳动。
 
 Now I only wrapped matplotlib plotting library, implemented simple regression, easy file input, and `docx` generation. To simplify repetious works. 
@@ -70,7 +72,7 @@ e -2
 43901   34258   28725   23670   19386   16866
 ```
 
-You can use `#` to comment a line, and `e *` to specify the order of magnitude. 
+You can use `#` to add some comment lines, and `e *` to specify the order of magnitude -- thus be able to directly write down the original on-paper data without conversion. 
 
 **Then it's time to write python**
 
@@ -205,7 +207,7 @@ You can:
 - Have a look at my programs in USTCPhysExpData.
  > However, they are not intended to run directly on your machine and magically give you correct answer without any change, but, if you really want to run them, maybe a `git reset` on this repository and dive into the dark history is the last resort. 
 
-- Read the source code yourself. Especially `physicsexp/mainfunc.py` and `physicsexp/gendocx.py`. 
+- Read the source code yourself. Especially `physicsexp/mainfunc.py` and `physicsexp/gendocx.py` -- with the example covering most use cases, you just need to check out function declaration and extra available options(they make life easier). 
 
 - Or open an issue. If you are also a USTC student just contact me with QQ/Email. Contacts are on my website. 
 
