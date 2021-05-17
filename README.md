@@ -3,13 +3,12 @@
 
 ### 中科大大物实验数据处理工具
 
-*The package is released on [pypi](https://pypi.org/project/physicsexp/).*
+> *The package is also released on [pypi](https://pypi.org/project/physicsexp/).*
 
-*For readers from pypi, [here](https://github.com/ustcpetergu/PhysicsExp) please.*
+> *For readers from pypi, [here](https://github.com/ustcpetergu/PhysicsExp) please.*
 
-关于本人的实验数据和数据处理脚本、图片、计算结果（从一级到四级），请见 [USTCPhysExpData](https://github.com/ustcpetergu/USTCPhysExpData) 项目。
-
-My experiment data, data processing scripts, figures, and some results(from experiment level I to IV), please visit the [USTCPhysExpData](https://github.com/ustcpetergu/USTCPhysExpData) project. 
+> 关于本人的实验数据和数据处理脚本、图片、计算结果（从一级到四级），请见 [USTCPhysExpData](https://github.com/ustcpetergu/USTCPhysExpData) 项目。
+> My experiment data, data processing scripts, figures, and some results(from experiment level I to IV), please visit the [USTCPhysExpData](https://github.com/ustcpetergu/USTCPhysExpData) project. 
 
 ## About
 
@@ -18,9 +17,9 @@ Don't want to use OriginLab or Excel? Try Python!
 ~~最终目的是建造一套用于自动化处理大物实验数据、绘制图像、生成可打印文档、将文档提交到在线打印系统的工具；针对常用数据处理需求实现简化和自动化，只要简单的几行代码，就能完成通用的绘图、拟合、不确定度计算等大物实验常用任务。~~
 理想与现实差距还很大，目前仅仅包装了matplotlib绘图库、简单拟合、文件输入、docx生成，简化重复劳动。
 
-Imagination and expectation are far from reality. Now I only wrapped matplotlib plotting library, implemented simple regression, easy file input, and `docx` generation. To simplify repetious works. 
+Now I only wrapped matplotlib plotting library, implemented simple regression, easy file input, and `docx` generation. To simplify repetious works. 
 
-This project comes with NO WARRENTY.
+相关博客：[USTC LUG上的页面](https://lug.ustc.edu.cn/planet/2021/01/physexp-using-python/) [本人主页上的页面](https://www.ustcpetergu.com/MyBlog/experience/2021/01/25/ustc-physexp-using-python.html)
 
 
 ## Installation
@@ -210,9 +209,11 @@ You can:
 
 - Or open an issue. If you are also a USTC student just contact me with QQ/Email. Contacts are on my website. 
 
-But don't be frustrated if none of these works. 
+But don't be frustrated if none of these works. The project comes with absolutely no warrenty. 
 
 **And can using these tools boost your efficiency? I don't know, but probably can't.**
+
+**However, if these can make you feel better despite spending more time, use it. **
 
 **Finally, think twice before wasting time on this project, instead, enjoy your life, learn some real physics, and find a (boy|girl)friend.**
 
